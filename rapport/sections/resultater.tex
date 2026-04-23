@@ -1,10 +1,92 @@
 \section{Gjennomføring med måleresultater}
+I dette kapitlet vil vi presentere resultatene fra målingene vi har gjort på de forskjellige kretsene. Transistoren i kretsen har vi målt til å ha $\beta = 299$, denne blir relevant for beregningene av forsterkningen i de forskjellige kretsene.
 
 \subsection{FE-forsterker med emittermotstand}
 
 \subsubsection{Krets 1 - forsterking/faseforskyving}
+Her tar vi for oss kretsen i figur~\ref{fig:transistorkretsen}. Inngangssignalet, $v_i$ er en sinusformet spenning med frekvens 5 kHz med størrelse $300\text{mV}_{pp}$. Først måler vi arbeidspunktet til forsterkeren gitt ved $\left(V_{CE}, I_C\right)$.
+\[
+Q = \left(0.905\text{V}, 2.53\text{mA}\right)
+\]
+\noindent
+Videre analyserer vi basen og kollektoren til transistoren for å finne forsterkningen og faseforskyvningen i kretsen. 
+
+\vspace{3em}
+HER KOMMER BILDER
+\vspace{3em}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultater av spenninger for forsterkerkrets.}
+\vspace{1em}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Node} & \textbf{Spenning} & \textbf{Beskrivelse} \\
+\midrule
+$V_B$ & 3.51V & DC-spenning \\
+$v_i$ & 344mVpp & AC-spenning \\ \hline
+$V_C$ & 3.85V & DC-spenning \\
+$v_o$ & 1.50Vpp & AC-spenning \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+Når basespenning går opp, så går kollektorspenning ned. Kretsen har \textbf{180$\degree$ faseforskyvning} mellom basen og kollektoren, dette gir en negativ forsterking. Forsterking mellom basis og kollektor er her da.
+
+\begin{gather*}
+    A_v = \frac{v_o}{v_i} = - \frac{1.50\text{V}}{344\text{mV}} \\
+    A_v \approx -4.36
+\end{gather*}
+
+\paragraph{Når signalgeneratoren påtrykker et signal på transistoren.}
+Transistoren er først biasert til et arbeidspunkt bestemt av DC-spenningene i kretsen. Når signalgeneratoren påtrykker et AC-signal på basis, vil transistoren svinge rundt dette arbeidspunktet.
+\\[1em]
+I den positive halvperioden øker basespenningen, og dermed øker også $V_{BE}$. Transistoren leder mer, slik at kollektorstrømmen $I_C$ øker. Dette gir større spenningsfall over kollektorresistansen, og derfor synker kollektorspenningen $V_C$. Samtidig øker emitterspenningen $V_E$ noe.
+\\[1em]
+I den negative halvperioden minker basespenningen, slik at $V_{BE}$ blir mindre. Transistoren leder da mindre, og kollektorstrømmen $I_C$ avtar. Spenningsfallet over kollektorresistansen blir mindre, og kollektorspenningen $V_C$ øker. Emitterspenningen $V_E$ minker også noe.
+
+\paragraph{Lastmotstand. }
+Vi setter en lastmotstand på 1M$\Omega$ fra $v_o$ til jording og måler inngang og utgangsspenning. Hensikten med kondensatorene her er å skille AC- og DC-komponentene. Inngangskondensatoren sørger for at det er kun et AC-signal som når $V_B$, og at ikke DC-strøm kan skille seg uønsket i basenoden. På kollektoren vil kondensatoren sørge for at et rent AC signal kommer ut fra forsterken, samt at ikke DC-strøm beveger seg uønsket ut på utgangen.
+
+\paragraph{Basis og emitter. }
+Vi analyserer basis og emitter i forsterkerkretsen.
+
+\begin{table}[H]
+\centering
+\caption{Resultater av spenninger for forsterkerkrets.}
+\vspace{1em}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Node} & \textbf{Spenning} & \textbf{Beskrivelse} \\
+\midrule
+$v_i$ & 296mVpp & AC-spenning \\ \hline
+$v_E$ & 288mVpp & AC-spenning \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+På oscilloskopet øker og minker signalene likt, faseforskyvning er lik 0, og forsterking er derfor positiv.
+\begin{gather*}
+    A_v = \frac{288\text{mV}}{296\text{mV}} = 0.97 \\
+    A_v \approx 1
+\end{gather*}
 
 \subsubsection{Krets 2 - kollektormotstandens innvirkning}
+I denne kretsen bytter kollektormotstanden, $R_2$ ut med en dekademotstand for å se hvordan dette påvirker forsterken. Først måler vi DC-spenningen på kollektor uten signalgeneratoren (frakoblet), og med dekademotstanden lik 5.6k$\Omega$.
+\[
+V_C = 3.85\text{V}
+\]
+
+\noindent
+Dersom vi stiller på dekademotstanden påvirker dette DC-spenningen. Om vi øker dekademotsanden, minker kollektorspenningen, og motsatt. Dette skjer på grunn av et høyere spenningsfall over dekademotstanden.
+\[
+V_C = 18\text{V} - R \cdot I_C = 18\text{V} - x \cdot k
+\]
+\noindent
+der $k$ er konstant, og $x$ varierer. Basestrømmen bestemmes av $R_10$ og $R_11$ i kretsen, og siden kollektorstrømmen er teoretisk proporsjonal med denne $\left(I_C = \beta I_B\right)$, er strømmen konstant gjennom en varierende dekademotsand. Derfor vil kollektorspenningen minke dersom dekademotstanden øker. 
 
 \subsubsection{Krets 3 - Inngangsimpedans}
 
