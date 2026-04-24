@@ -86,11 +86,77 @@ Dersom vi stiller på dekademotstanden påvirker dette DC-spenningen. Om vi øke
 V_C = 18\text{V} - R \cdot I_C = 18\text{V} - x \cdot k
 \]
 \noindent
-der $k$ er konstant, og $x$ varierer. Basestrømmen bestemmes av $R_10$ og $R_11$ i kretsen, og siden kollektorstrømmen er teoretisk proporsjonal med denne $\left(I_C = \beta I_B\right)$, er strømmen konstant gjennom en varierende dekademotsand. Derfor vil kollektorspenningen minke dersom dekademotstanden øker. 
+der $k$ er konstant, og $x$ varierer. Basestrømmen bestemmes av $R_10$ og $R_11$ i kretsen, og siden kollektorstrømmen er teoretisk proporsjonal med denne $\left(I_C = \beta I_B\right)$, er strømmen konstant gjennom en varierende dekademotsand. Derfor vil kollektorspenningen minke dersom dekademotstanden øker.
+
+\paragraph{Forsterking. }
+Forsterking for følgende verdier av dekademotstanden: $4.7\text{k}\Omega$, $5.6\text{k}\Omega$ og $6.8\text{k}\Omega$.
+
+\begin{table}[H]
+\centering
+\caption{Resultater av forsterking sammenliknet med teori.}
+\vspace{1em}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Motstandsverdi} & \textbf{Teoretisk $A_v$} & \textbf{Målt $A_v$} & \textbf{Avvik} \\
+\midrule
+$4.7\text{k}\Omega$ & -3.88 & -3.58 & 7.73\% \\
+$5.6\text{k}\Omega$ & -4.59 & -4.21 & 8.28\% \\
+$6.8\text{k}\Omega$ & -5.57 & -5.73 & 2.87\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+Resultatene har noe avvik, men vi ser at de målte verdiene følger den teoretiske trenden godt. Avvikene er relativt små, spesielt for den høyeste motstandsverdien, noe som tyder på at modellen beskriver kretsen rimelig godt. Avvikene her kan forklares i enkle feilkilder som komponenttoleranser og i tillegg til at praktisk $\beta$ avviker fra teoretisk $\beta$.
+\\[1em]
+Forsterkeren begynner å klippe ved inngangsspenning:
+\[
+    v_i = 544\text{mV}
+\]
 
 \subsubsection{Krets 3 - Inngangsimpedans}
+I denne kretsen benytter vi en dekademotstand i serie med signalgeneratoren på inngangsdelen av kretsen. Dekademotstanden settes i starten til $0\Omega$, dette er for å skape kortslutting. Kretsen under viser dette.
+
+\begin{figure}[H]
+\centering
+\begin{circuitikz}[american voltages]
+    \draw (0,0) node[ground] {}
+          to[sV, l=$v_i$] (0,3)
+          to[potentiometer, l=$R_{dek}$] (3,3)
+          to[R, l_=$R_{in}$, v^=$v_a$] (3,0)
+          -- (0,0);
+\end{circuitikz}
+\caption{Illustrasjon av inngangsimpedans med dekademotstand. }
+\end{figure}
+
+\noindent
+Dersom dekademotstanden har motsand $0\Omega$ måler vi inngangsspenningen over $R_in$. Dersom vi øker dekademotstanden til $v_a$ er halvparten av $v_i$, må motstandene være like. Matematisk bruker vi likningen for spenningsdeler.
+\begin{gather*}
+    v_a = v_i \frac{R_{in}}{R_{dek} + R_{in}}, \quad R_{dek} = R_{in} \\
+    v_a = v_i \frac{R_{in}}{2\cdot R_{in}} = v_i \cdot \frac{1}{2}
+\end{gather*}
+\noindent
+Da ser vi at når AC-delen av basespenningen i vårt tilfelle er halvparten av inngangsspenningen, må dekademotstanden være lik inngangsimdepansen i kretsen.
+
+\begin{table}[H]
+\centering
+\caption{Resultater av inngangsimpedans}
+\vspace{1em}
+\begin{tabular}{lc}
+\toprule
+\textbf{Dekademotstand} & \textbf{Basespenning} \\
+\midrule
+$0\Omega$ & $600\text{mV}_{pp}$ \\
+$18\text{k}\Omega$ & $298\text{mV}_{pp}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsubsection{Krets 4 - Utgangsimpedans}
+I denne kretsen benytter vi dekademotstand i serie med utgangskondensatoren til jord. Her benytter vi 
+
+
+
 
 \subsection{FE-forsterker med avkoblet emittermotstand}
 

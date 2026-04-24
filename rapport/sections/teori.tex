@@ -49,6 +49,11 @@ Dette er forsterkerkretsen vi skal studere, gjøre beregninger på og legge et t
 
 \noindent
 Tar vi for oss koblingen kan vi analysere den og se på effekten av endringer. Hvis base-emitterspenningen øker, leder transistoren mer og basestrømmen øker kraftig. Dersom kollektorstrømmen endres, kan vi se at kollektorstrømmen må synke pågrunn av et større spenningsfall over $R_2$. $I_E$ øker med $I_C$ proporsjonalt og $V_E$ vil dermed øke pågrunn av større spenningsfall over emittermotstanden. Dersom $V_{BE}$ og $I_B$ synker, vil effekten reverseres.
+\\[1em]
+Fra databladet kan vi leser vi:
+\[
+\beta = 290
+\]
 
 \vspace{1em}
 
@@ -128,13 +133,13 @@ R_{\text{th}} = 17.3\,\text{k}\Omega
 Vi kan nå regne for basestrømmen og $r_e$.
 \begin{gather*}
 I_B = \frac{V_{th} - V_{BE}}{R_{th} + \left(\beta + 1\right) R_3} \\
-I_B = \frac{3.808\text{V} - 0.7\text{V}}{17.3\text{k}\Omega + \left(\beta + 1\right) 1.2\text{k}\Omega} \\
+I_B = \frac{3.808\text{V} - 0.7\text{V}}{17.3\text{k}\Omega + \left(290 + 1\right) 1.2\text{k}\Omega} \\
 I_B = 8.46 \mu \text{A}
 \end{gather*}
 
 \begin{gather*}
 r_e = \frac{V_T}{I_E} = \frac{V_T}{\left(\beta + 1\right) I_B} \\
-r_e = \frac{26\text{mA}}{\left(\beta + 1\right) 8.46 \mu \text{A}} \\
+r_e = \frac{26\text{mA}}{\left(290 + 1\right) 8.46 \mu \text{A}} \\
 r_e = 10.56 \Omega
 \end{gather*}
 
