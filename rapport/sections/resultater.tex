@@ -146,17 +146,67 @@ Da ser vi at når AC-delen av basespenningen i vårt tilfelle er halvparten av i
 \toprule
 \textbf{Dekademotstand} & \textbf{Basespenning} \\
 \midrule
-$0\Omega$ & $600\text{mV}_{pp}$ \\
+$\approx 0\Omega$ & $600\text{mV}_{pp}$ \\
 $18\text{k}\Omega$ & $298\text{mV}_{pp}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsubsection{Krets 4 - Utgangsimpedans}
-I denne kretsen benytter vi dekademotstand i serie med utgangskondensatoren til jord. Her benytter vi 
+I denne kretsen benytter vi dekademotstand i serie med utgangskondensatoren til jord. Under er en enke representasjon av dekademotstandens plassering og rolle i å finne utgangsspenning.
 
+\begin{figure}[H]
+\centering
+\begin{circuitikz}[american voltages]
+    \draw (0,0) node[above] {$V_{th}$};
+    \draw (0, 0) node[circle, fill, inner sep=1.5pt] {};
+
+    \draw (0, 0) to[R, l_=$R_{out}$] (3, 0)
+        to[potentiometer, l_=$R_{dek}$, , v^=$v_o$] (3, -3) node[ground] {};
+\end{circuitikz}
+\caption{Illustrasjon av utgangsimpedans med dekademotstand. }
+\end{figure}
+
+\noindent
+Inngangsspenningen er thevenins spenning sett fra dekademotstanden. Dersom $R_{dek} \rightarrow \infty$, kan dekademotstanden tilnærmes åpen krets og siden ingen strøm går gjennom kretsen måler vi theveninsspenningen på $v_0$. Ettersom vi minker dekademotstanden, når vi et punkt hvor utgangsspenningen er halvert fra open-circuit $V_o$. Da er det en spenningsdeler som deler spenningen likt, og dekademotstanden må være lik utgangsimpedansen til forsterkeren.
+
+\begin{table}[H]
+\centering
+\caption{Resultater av inngangsimpedans}
+\vspace{1em}
+\begin{tabular}{lc}
+\toprule
+\textbf{Dekademotstand} & \textbf{Utgangsspenning} \\
+\midrule
+$\approx 10\text{M}\Omega$ & $1.12\text{V}_{pp}$ \\
+$6\text{k}\Omega$ & $600\text{mV}_{pp}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 
 \subsection{FE-forsterker med avkoblet emittermotstand}
+Her er kretsen lik den i figur~\ref{fig:transistorkretsen}, men med en kondensator med kapasitans $C=47\mu \text{f}$ i parallell med emittermotstanden. I DC-analyse blir dette åpen-krets, og utregningene forblir de samme. I AC-analyse blir kondensatoren kortsluttet, og vi har dermed ingen emittermotstand.
+\paragraph{Arbeidspunktet. }
+Denne måles i DC-modus og skal derfor være lik som tidligere. Dette er målt til.
+\[
+Q = \left(0.93\text{V}, 2.52\text{mA}\right)
+\]
 
+\noindent
+Sammenlikner vi det med arbeidspunktet i forsterkerkretsen uten emitterkondensatoren.
+
+\begin{table}[H]
+\centering
+\caption{Arbeidspunktsammenlikning}
+\vspace{1em}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Avkoblet emittermotstand} & \textbf{$V_CE$} & \textbf{$I_C$} & \textbf{Avvik} \\
+\midrule
+Nei & 0.905V & y & z \\
+Ja & 0.9 & x & y \\
+\bottomrule
+\end{tabular}
+\end{table}
