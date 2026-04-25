@@ -2,18 +2,56 @@
 I dette kapitlet vil vi presentere resultatene fra målingene vi har gjort på de forskjellige kretsene. Transistoren i kretsen har vi målt til å ha $\beta = 299$, denne blir relevant for beregningene av forsterkningen i de forskjellige kretsene.
 
 \subsection{FE-forsterker med emittermotstand}
+Målinger for DC-verdier er presentert i tabell og lest fra DMM. Målinger for AC er presentert som bilde samt presentert i tabell.
 
 \subsubsection{Krets 1 - forsterking/faseforskyving}
 Her tar vi for oss kretsen i figur~\ref{fig:transistorkretsen}. Inngangssignalet, $v_i$ er en sinusformet spenning med frekvens 5 kHz med størrelse $300\text{mV}_{pp}$. Først måler vi arbeidspunktet til forsterkeren gitt ved $\left(V_{CE}, I_C\right)$.
 \[
-Q = \left(0.905\text{V}, 2.53\text{mA}\right)
+Q = \left(0.91\text{V}, 2.53\text{mA}\right)
 \]
-\noindent
-Videre analyserer vi basen og kollektoren til transistoren for å finne forsterkningen og faseforskyvningen i kretsen. 
 
-\vspace{3em}
-HER KOMMER BILDER
-\vspace{3em}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=7cm,
+    xlabel={$V_{CE}$ [V]},
+    ylabel={$I_C$ [mA]},
+    xmin=0, xmax=18,
+    ymin=0, ymax=3,
+    grid=both,
+    axis lines=left,
+    domain=0:18,
+    samples=100,
+]
+
+% Lastlinje: I_C = (18 - V_CE)/6.8k
+\addplot[thick, blue] { (18 - x)/6.8 };
+
+% Punkter
+\addplot[only marks, mark=*] coordinates {(18,0) (0,2.65)};
+
+% Labels på punktene
+\node at (axis cs:18,0) [anchor=north west] {$(18,0)$};
+\node at (axis cs:0,2.65) [anchor=south east] {$(0,2.65)$};
+
+\addplot[only marks, mark=*, red] coordinates {(0.91, 2.53)};
+\node at (axis cs:0.91, 2.53) [anchor=south] {$Q$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Arbeidslinje for transistorforsterkeren med arbeidspunkt $Q$.}
+\end{figure}
+
+\noindent
+Punktet ligger greit innenfor forventing på linja. Videre analyserer vi basen og kollektoren til transistoren for å finne forsterkningen og faseforskyvningen i kretsen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/oppgave-1-vivo.png} 
+\caption{$v_i$ og $v_o$. }
+\end{figure}
 
 
 \begin{table}[H]
@@ -25,8 +63,8 @@ HER KOMMER BILDER
 \textbf{Node} & \textbf{Spenning} & \textbf{Beskrivelse} \\
 \midrule
 $V_B$ & 3.51V & DC-spenning \\
-$v_i$ & 344mVpp & AC-spenning \\ \hline
-$V_C$ & 3.85V & DC-spenning \\
+$V_C$ & 3.85V & DC-spenning \\  \hline
+$v_i$ & 344mVpp & AC-spenning \\
 $v_o$ & 1.50Vpp & AC-spenning \\
 \bottomrule
 \end{tabular}
@@ -48,21 +86,41 @@ I den positive halvperioden øker basespenningen, og dermed øker også $V_{BE}$
 I den negative halvperioden minker basespenningen, slik at $V_{BE}$ blir mindre. Transistoren leder da mindre, og kollektorstrømmen $I_C$ avtar. Spenningsfallet over kollektorresistansen blir mindre, og kollektorspenningen $V_C$ øker. Emitterspenningen $V_E$ minker også noe.
 
 \paragraph{Lastmotstand. }
-Vi setter en lastmotstand på 1M$\Omega$ fra $v_o$ til jording og måler inngang og utgangsspenning. Hensikten med kondensatorene her er å skille AC- og DC-komponentene. Inngangskondensatoren sørger for at det er kun et AC-signal som når $V_B$, og at ikke DC-strøm kan skille seg uønsket i basenoden. På kollektoren vil kondensatoren sørge for at et rent AC signal kommer ut fra forsterken, samt at ikke DC-strøm beveger seg uønsket ut på utgangen.
+Vi setter en lastmotstand på 1M$\Omega$ fra $v_o$ til jording og måler inngang og utgangsspenning.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/lastmotstand.png}
+\caption{Inngang- og utgangssignal med bruk av lastmotstand. }
+\end{figure}
+
+\[
+v_i = 288\text{mV}_{pp} \qquad v_o = 1.12\text{V}_{pp}
+\]
+
+\noindent
+Når vi flytter måleprobene fra basis og kollektor, til inngang og utgang merker vi at DC-komponenten fjernes. Det ser vi med en forflytning langs y aksen. Dette skjer pågrunn av målingen nå tar kondensatoren i betrakting. Videre kan vi se på hensikten med kondensatorne, det er å skille AC- og DC-komponentene. Inngangskondensatoren sørger for at det er kun et AC-signal som når $V_B$, og at ikke DC-strøm kan skille seg uønsket i basenoden. På kollektoren vil kondensatoren sørge for at et rent AC signal kommer ut fra forsterken, samt at ikke DC-strøm beveger seg uønsket ut på utgangen.
 
 \paragraph{Basis og emitter. }
 Vi analyserer basis og emitter i forsterkerkretsen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/base_og_emitter.png}
+\caption{Base- og emitterspenning. }
+\end{figure}
+
 
 \begin{table}[H]
 \centering
 \caption{Resultater av spenninger for forsterkerkrets.}
 \vspace{1em}
-\begin{tabular}{lcc}
+\begin{tabular}{lc}
 \toprule
-\textbf{Node} & \textbf{Spenning} & \textbf{Beskrivelse} \\
+\textbf{Node} & \textbf{Spenning} \\
 \midrule
-$v_i$ & 296mVpp & AC-spenning \\ \hline
-$v_E$ & 288mVpp & AC-spenning \\
+$v_i$ & 296mVpp \\
+$v_E$ & 288mVpp \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -74,6 +132,12 @@ På oscilloskopet øker og minker signalene likt, faseforskyvning er lik 0, og f
     A_v \approx 1
 \end{gather*}
 
+\noindent
+Dette forventer vi. Spenningen mellom base og emitter er omtrent 0.7V, noe som bare er betydelig i DC-analysen. Det betyr at AC-signalet mer eller mindre er helt likt på basen og emitteren, med ingen faseforskyvning. Uansett forventer vi ikke 1 i gain, fordi $r_e$ i AC-ekvivalent krets vil påvirke gainen (se figur~\ref{fig:ac-ekvivalent}) som vist i formel for forsterking i emitterfølger-krets under.
+\[
+A_v = \frac{R_E}{R_E + r_e}
+\]
+
 \subsubsection{Krets 2 - kollektormotstandens innvirkning}
 I denne kretsen bytter kollektormotstanden, $R_2$ ut med en dekademotstand for å se hvordan dette påvirker forsterken. Først måler vi DC-spenningen på kollektor uten signalgeneratoren (frakoblet), og med dekademotstanden lik 5.6k$\Omega$.
 \[
@@ -83,13 +147,15 @@ V_C = 3.85\text{V}
 \noindent
 Dersom vi stiller på dekademotstanden påvirker dette DC-spenningen. Om vi øker dekademotsanden, minker kollektorspenningen, og motsatt. Dette skjer på grunn av et høyere spenningsfall over dekademotstanden.
 \[
-V_C = 18\text{V} - R \cdot I_C = 18\text{V} - x \cdot k
+V_C = 18\text{V} - R_C \cdot I_C
 \]
 \noindent
-der $k$ er konstant, og $x$ varierer. Basestrømmen bestemmes av $R_10$ og $R_11$ i kretsen, og siden kollektorstrømmen er teoretisk proporsjonal med denne $\left(I_C = \beta I_B\right)$, er strømmen konstant gjennom en varierende dekademotsand. Derfor vil kollektorspenningen minke dersom dekademotstanden øker.
+der $R_C$ er konstant, og $I_C$ varierer. Basestrømmen bestemmes av $R_4$ og $R_6$ i kretsen, og siden kollektorstrømmen er teoretisk proporsjonal med denne $\left(I_C = \beta I_B\right)$, er strømmen konstant gjennom en varierende dekademotsand. Derfor vil kollektorspenningen minke dersom dekademotstanden øker.
 
 \paragraph{Forsterking. }
 Forsterking for følgende verdier av dekademotstanden: $4.7\text{k}\Omega$, $5.6\text{k}\Omega$ og $6.8\text{k}\Omega$.
+
+
 
 \begin{table}[H]
 \centering
@@ -107,12 +173,73 @@ $6.8\text{k}\Omega$ & -5.57 & -5.73 & 2.87\% \\
 \end{table}
 
 \noindent
-Resultatene har noe avvik, men vi ser at de målte verdiene følger den teoretiske trenden godt. Avvikene er relativt små, spesielt for den høyeste motstandsverdien, noe som tyder på at modellen beskriver kretsen rimelig godt. Avvikene her kan forklares i enkle feilkilder som komponenttoleranser og i tillegg til at praktisk $\beta$ avviker fra teoretisk $\beta$.
-\\[1em]
-Forsterkeren begynner å klippe ved inngangsspenning:
-\[
-    v_i = 544\text{mV}
-\]
+Resultatene har noe avvik, men vi ser at de målte verdiene følger den teoretiske trenden godt. Avvikene er relativt små, spesielt for den høyeste motstandsverdien, noe som tyder på at modellen beskriver kretsen rimelig godt. Avvikene her kan forklares i enkle feilkilder som komponenttoleranser og i tillegg til at praktisk $\beta$ avviker fra teoretisk $\beta$. 
+
+\paragraph{Klippespenning. }
+Videre kan vi se på når forsterken klipper inngangsspenningen. Vi bruker kollektormotstand $5.6\text{k}\Omega$ og skrur på inngangsspenningen til den klipper utgangssignalet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/forsterk_klipper_ved_spenning.png}
+\caption{Estimert uklippet $v_o$. }
+\end{figure}
+
+\noindent
+Forsterkeren begynner å klippe ved inngangsspenning $v_i = 544\text{mV}$. Den klipper i negativ halvperiode av utgangssignalet. Når en forsterker klipper utgangssignalet skjer det fordi arbeidspunktet forsøker å eksistere utenfor det definisjonsområdet på arbeidslinjen.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm,
+    height=7cm,
+    xlabel={$V_{CE}$ [V]},
+    ylabel={$I_C$ [mA]},
+    xmin=0, xmax=18.5,
+    ymin=0, ymax=3.1,
+    grid=both,
+    axis lines=left,
+]
+
+% Arbeidslinje
+\addplot[thick, blue, domain=0:18] {(18-x)/6.8};
+
+% Endepunkter
+\addplot[only marks, mark=*] coordinates {(18,0) (0,2.65)};
+\node at (axis cs:18,0) [anchor=north west] {Cutoff};
+\node at (axis cs:0,2.65) [anchor=south east] {Metning};
+
+% Q-punkt
+\addplot[only marks, mark=*, red] coordinates {(9,1.32)};
+\node at (axis cs:9,1.32) [anchor=south] {$Q$};
+
+% Q_min og Q_max langs arbeidslinjen
+\addplot[only marks, mark=*, orange] coordinates {(14,0.59) (4,2.06)};
+\node at (axis cs:14,0.59) [anchor=north west] {$Q_{\min}$};
+\node at (axis cs:4,2.06) [anchor=south east] {$Q_{\max}$};
+
+% Diagonal sinus rundt arbeidslinjen
+\addplot[
+    thick,
+    red,
+    domain=-5:5,
+    samples=200,
+    variable=\s
+]
+(
+    {9 + \s},
+    {(18-(9+\s))/6.8 + 0.18*sin(deg(2*pi*\s/10))}
+);
+
+% Hjelpelinje mellom Q_min og Q_max
+\draw[dashed, orange]
+(axis cs:4,2.06) -- (axis cs:14,0.59);
+
+\end{axis}
+\end{tikzpicture}
+\caption{Illustrasjon av signalutslag rundt arbeidspunktet langs arbeidslinjen}
+\end{figure}
+
 
 \subsubsection{Krets 3 - Inngangsimpedans}
 I denne kretsen benytter vi en dekademotstand i serie med signalgeneratoren på inngangsdelen av kretsen. Dekademotstanden settes i starten til $0\Omega$, dette er for å skape kortslutting. Kretsen under viser dette.
@@ -201,12 +328,52 @@ Sammenlikner vi det med arbeidspunktet i forsterkerkretsen uten emitterkondensat
 \centering
 \caption{Arbeidspunktsammenlikning}
 \vspace{1em}
-\begin{tabular}{lccc}
+\begin{tabular}{lcc}
 \toprule
-\textbf{Avkoblet emittermotstand} & \textbf{$V_CE$} & \textbf{$I_C$} & \textbf{Avvik} \\
+\textbf{Avkoblet emittermotstand} & \textbf{$V_CE$} & \textbf{$I_C$} \\
 \midrule
-Nei & 0.905V & y & z \\
-Ja & 0.9 & x & y \\
+Nei & 0.91V & 2.53mA \\
+Ja & 0.93V & 2.52mA \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+Dette er som forventet, siden arbeidspunktet måles i DC-krets, vil kondensatoren være åpen krets og derfor ha ingen påvirkning. Kretsen her er derfor helt lik som den i figur~\ref{fig:transistorkretsen}. Avvikket er neglisjerbart og vi ser at teorien stemmer.
+
+\paragraph{Forsterking (gain) i kretsen. } Under er bilde av $v_i$ i gult, og $v_o$ i blått. Vi skal studere gainen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/avkoblet_emittermotstand_gain.png}
+\caption{$v_i$ og $v_o$ ved avkoblet emittermotstand. }
+\end{figure}
+
+\noindent
+Dette er et tydelig tilfelle av klipping i både positiv og negativ periode. For å finne forsterkingen, må vi analysere hva som hadde vært den ''uklippet'' $v_o$ kurven. Under er et bilde av en estimert kurve, slik at vi kan regne ut forsterking.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/avkoblet_emittermotstand_gain_reganalyse.png}
+\caption{Estimert uklippet $v_o$. }
+\end{figure}
+
+\noindent
+Skalaen på oscillskopet er på 10.0V, og den estimerte kurven har omtrent 3.5 slike divisjoner. Estimert $V_{pp}$ er $35V_{pp}$. I tillegg ser vi tydelig 180 grader faseforskyvning. Forsterkingen i kretsen er da.
+\begin{gather*}
+    A_v \approx - \frac{35\text{V}}{100\text{mV}} \\
+    A_v \approx - 350
+\end{gather*}
+
+\begin{table}[H]
+\centering
+\caption{Arbeidspunktsammenlikning}
+\vspace{1em}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Teoretisk} & \textbf{Målt} & \textbf{Avvik} \\
+\midrule
+$-530.3$ & $\approx - 350$ & $\approx 34.0 \%$ \\
 \bottomrule
 \end{tabular}
 \end{table}

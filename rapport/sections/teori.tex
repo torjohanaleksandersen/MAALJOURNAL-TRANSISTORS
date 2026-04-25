@@ -50,12 +50,7 @@ Dette er forsterkerkretsen vi skal studere, gjøre beregninger på og legge et t
 \noindent
 Tar vi for oss koblingen kan vi analysere den og se på effekten av endringer. Hvis base-emitterspenningen øker, leder transistoren mer og basestrømmen øker kraftig. Dersom kollektorstrømmen endres, kan vi se at kollektorstrømmen må synke pågrunn av et større spenningsfall over $R_2$. $I_E$ øker med $I_C$ proporsjonalt og $V_E$ vil dermed øke pågrunn av større spenningsfall over emittermotstanden. Dersom $V_{BE}$ og $I_B$ synker, vil effekten reverseres.
 \\[1em]
-Fra databladet kan vi leser vi:
-\[
-\beta = 290
-\]
-
-\vspace{1em}
+Fra databladet kan vi leser vi $\beta = 290$.
 
 \begin{table}[H]
 \centering
@@ -214,7 +209,7 @@ $6.8\,\text{k}\Omega$ & -5.57 \\
 \end{table}
 
 \noindent
-Faseforskyvingen mellom basis og kollektor kan leses gjennom gain $A_v$. Denne er negativ, noe som indikerer et $180\deg$ faseforskyving. Kondensatorene $C_4$ og $C_5$ har som hensikt å fjerne DC-komponenten fra det eksterne signalet. Dersom vi avkobler emittermotstanden $R_3$ med en kondensator, vil kretsen være uendret i DC-analyse, men i AC-analyse ser vi en helt annen krets. Siden kondensatoren blir kortsluttet, vil da gainen gis ved:
+Faseforskyvingen mellom basis og kollektor kan leses gjennom gain $A_v$. Denne er negativ, noe som viser $180\degree$ faseforskyving. Dette kan også leses av kretsen, dersom inngangsspenningen øker, øker strømmen. Ved høyere strøm øker spenningsfallet over kollektorresistansen og utgangsspenningen synker. Dermed vil utgangsspenningen synke når inngangsspenningen øker, derav $180\degree$ faseskift. Kondensatorene $C_4$ og $C_5$ har som hensikt å fjerne DC-komponenten fra det eksterne signalet. Dersom vi avkobler emittermotstanden $R_3$ med en kondensator, vil kretsen være uendret i DC-analyse, men i AC-analyse ser vi en helt annen krets. Siden kondensatoren blir kortsluttet, vil da gainen gis ved:
 \[
 A_v = - \frac{R_2}{r_e} = - \frac{R_2}{10.56\Omega}
 \]
@@ -234,3 +229,54 @@ $6.8\,\text{k}\Omega$ & -644.0 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsubsection{Arbeidslinjen}
+KVL i kollektordelen av forsterken kan uttrykkes:
+\begin{gather*}
+    V_CC = I_C R_C + V_{CE} + I_E R_E, \quad I_E \approx I_C \\
+    V_1 = I_C R_2 + V_{CE} + I_C R_3 \\
+    18\text{V} = I_C \left(5.6\text{k}\Omega + 1.2\text{k}\Omega\right) + V_{CE} \\
+    18\text{V} = I_C \left(6.8\text{k}\Omega \right) + V_{CE}
+\end{gather*}
+
+\noindent
+Nå har vi to ukjente og kan lage arbeidslinjen for denne forsterkeren.
+
+\begin{gather*}
+    I_C = 0\text{mA} \rightarrow V_{CE} = 18\text{V} \\
+    V_{CE} = 0\text{V} \rightarrow I_C = 2.65\text{mA}
+\end{gather*}
+
+\noindent
+Arbeidslinjen er lineær og kan dras fra disse to punktene.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=7cm,
+    xlabel={$V_{CE}$ [V]},
+    ylabel={$I_C$ [mA]},
+    xmin=0, xmax=18,
+    ymin=0, ymax=3,
+    grid=both,
+    axis lines=left,
+    domain=0:18,
+    samples=100,
+]
+
+% Lastlinje: I_C = (18 - V_CE)/6.8k
+\addplot[thick, blue] { (18 - x)/6.8 };
+
+% Punkter
+\addplot[only marks, mark=*] coordinates {(18,0) (0,2.65)};
+
+% Labels på punktene
+\node at (axis cs:18,0) [anchor=north west] {$(18,0)$};
+\node at (axis cs:0,2.65) [anchor=south east] {$(0,2.65)$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Arbeidslinje for transistorforsterkeren}
+\end{figure}
