@@ -1,5 +1,5 @@
 \section{Gjennomføring med måleresultater}
-I dette kapitlet vil vi presentere resultatene fra målingene vi har gjort på de forskjellige kretsene. Transistoren i kretsen har vi målt til å ha $\beta = 299$, denne blir relevant for beregningene av forsterkningen i de forskjellige kretsene.
+I dette kapitlet vil vi presentere resultatene fra målingene vi har gjort på de forskjellige kretsene. Transistoren i kretsen har vi målt til å ha $\beta = 299$.
 
 \subsection{FE-forsterker med emittermotstand}
 Målinger for DC-verdier er presentert i tabell og lest fra DMM. Målinger for AC er presentert som bilde samt presentert i tabell.
@@ -26,7 +26,7 @@ Q = \left(0.91\text{V}, 2.53\text{mA}\right)
     samples=100,
 ]
 
-% Lastlinje: I_C = (18 - V_CE)/6.8k
+% Lastlinje: I_C = (18 - V_{CE})/6.8k
 \addplot[thick, blue] { (18 - x)/6.8 };
 
 % Punkter
@@ -155,25 +155,59 @@ der $R_C$ er konstant, og $I_C$ varierer. Basestrømmen bestemmes av $R_4$ og $R
 \paragraph{Forsterking. }
 Forsterking for følgende verdier av dekademotstanden: $4.7\text{k}\Omega$, $5.6\text{k}\Omega$ og $6.8\text{k}\Omega$.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{Media/4.7kollektormotstand.png}
+\caption{Kollektormotstand $4.7\text{k}\Omega$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{Media/5.6kollektormotstand.png}
+\caption{Kollektormotstand $5.6\text{k}\Omega$.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Media/6.8kollektormotstand.png}
+        \caption{Kollektormotstand $6.8\text{k}\Omega$.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Media/6.8kollektormotstand_REGGET.png}
+        \caption{Omtrentlig uklippet utgangssinus.}
+    \end{subfigure}
+
+    \caption{Ufullstendig bilde av utgangsspenning. Omtrentlig sinus med størrelse 2.4 divisjoner. }
+\end{figure}
+
+
+
 
 
 \begin{table}[H]
 \centering
 \caption{Resultater av forsterking sammenliknet med teori.}
 \vspace{1em}
-\begin{tabular}{lccc}
+\begin{tabular}{lccccc}
 \toprule
-\textbf{Motstandsverdi} & \textbf{Teoretisk $A_v$} & \textbf{Målt $A_v$} & \textbf{Avvik} \\
+\textbf{Motstandsverdi} & \textbf{$v_i$} & \textbf{$v_o$} & \textbf{Målt $A_v$} & \textbf{Teoretisk $A_v$} & \textbf{Avvik} \\
 \midrule
-$4.7\text{k}\Omega$ & -3.88 & -3.58 & 7.73\% \\
-$5.6\text{k}\Omega$ & -4.59 & -4.21 & 8.28\% \\
-$6.8\text{k}\Omega$ & -5.57 & -5.73 & 2.87\% \\
+$4.7\text{k}\Omega$ & $536\text{mV}_{pp}$ & $1.92\text{V}_{pp}$ & -3.58 & -3.88 & 7.73\% \\
+$5.6\text{k}\Omega$ & $304\text{mV}_{pp}$ & $1.28\text{V}_{pp}$ & -4.21 & -4.59 & 8.28\% \\
+$6.8\text{k}\Omega$ & $436\text{mV}_{pp}$ & $2.4\text{V}_{pp}$ & -5.50 & -5.57 & 1.26\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \noindent
-Resultatene har noe avvik, men vi ser at de målte verdiene følger den teoretiske trenden godt. Avvikene er relativt små, spesielt for den høyeste motstandsverdien, noe som tyder på at modellen beskriver kretsen rimelig godt. Avvikene her kan forklares i enkle feilkilder som komponenttoleranser og i tillegg til at praktisk $\beta$ avviker fra teoretisk $\beta$. 
+Resultatene viser noe avvik mellom målte og teoretiske verdier, men den målte forsterkningen følger den teoretiske trenden godt ved økende motstandsverdi. Avvikene er relativt små, og spesielt for $6.8\text{k}\Omega$ er samsvaret godt, noe som tyder på at småsignalmodellen gir en rimelig beskrivelse av kretsen i dette området.
+\\[1em]
+For de lavere motstandsverdiene er avvikene større. Dette kan skyldes at transistoren i større grad drives ut av det lineære området, siden arbeidspunktet ligger nær metning. I tillegg kan variasjoner i transistorens parametere, som $\beta$, samt måleusikkerhet bidra til avvikene.
 
 \paragraph{Klippespenning. }
 Videre kan vi se på når forsterken klipper inngangsspenningen. Vi bruker kollektormotstand $5.6\text{k}\Omega$ og skrur på inngangsspenningen til den klipper utgangssignalet.
@@ -181,64 +215,20 @@ Videre kan vi se på når forsterken klipper inngangsspenningen. Vi bruker kolle
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{Media/forsterk_klipper_ved_spenning.png}
-\caption{Estimert uklippet $v_o$. }
+\caption{midlertidig}
 \end{figure}
 
 \noindent
-Forsterkeren begynner å klippe ved inngangsspenning $v_i = 544\text{mV}$. Den klipper i negativ halvperiode av utgangssignalet. Når en forsterker klipper utgangssignalet skjer det fordi arbeidspunktet forsøker å eksistere utenfor det definisjonsområdet på arbeidslinjen.
+Forsterkeren begynner å klippe ved inngangsspenning $v_i = 544\text{mV}$. Den klipper i negativ halvperiode av utgangssignalet. Når en forsterker klipper utgangssignalet skjer det fordi arbeidspunktet forsøker å eksistere utenfor det definisjonsområdet på arbeidslinjen. Under er en figur som viser et helt vilkårlig arbeidspunkt $Q$ på arbeidslinjen til transistorkretsen, i tillegg viser den utslagsområdet som kommer av inngangssignalet. 
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=11cm,
-    height=7cm,
-    xlabel={$V_{CE}$ [V]},
-    ylabel={$I_C$ [mA]},
-    xmin=0, xmax=18.5,
-    ymin=0, ymax=3.1,
-    grid=both,
-    axis lines=left,
-]
-
-% Arbeidslinje
-\addplot[thick, blue, domain=0:18] {(18-x)/6.8};
-
-% Endepunkter
-\addplot[only marks, mark=*] coordinates {(18,0) (0,2.65)};
-\node at (axis cs:18,0) [anchor=north west] {Cutoff};
-\node at (axis cs:0,2.65) [anchor=south east] {Metning};
-
-% Q-punkt
-\addplot[only marks, mark=*, red] coordinates {(9,1.32)};
-\node at (axis cs:9,1.32) [anchor=south] {$Q$};
-
-% Q_min og Q_max langs arbeidslinjen
-\addplot[only marks, mark=*, orange] coordinates {(14,0.59) (4,2.06)};
-\node at (axis cs:14,0.59) [anchor=north west] {$Q_{\min}$};
-\node at (axis cs:4,2.06) [anchor=south east] {$Q_{\max}$};
-
-% Diagonal sinus rundt arbeidslinjen
-\addplot[
-    thick,
-    red,
-    domain=-5:5,
-    samples=200,
-    variable=\s
-]
-(
-    {9 + \s},
-    {(18-(9+\s))/6.8 + 0.18*sin(deg(2*pi*\s/10))}
-);
-
-% Hjelpelinje mellom Q_min og Q_max
-\draw[dashed, orange]
-(axis cs:4,2.06) -- (axis cs:14,0.59);
-
-\end{axis}
-\end{tikzpicture}
-\caption{Illustrasjon av signalutslag rundt arbeidspunktet langs arbeidslinjen}
+\includegraphics[width=0.8\textwidth]{Media/q_sving.jpg}
+\caption{Illustrasjon av inngangssignalets påvirkning på arbeidslinjen.}
 \end{figure}
+
+\noindent
+Når inngangssignalet øker, vil dermed basestrømmen øke. Kollektorstrømmen vil øke i sammenheng med basestrømmen så lenge transistoren er aktiv. Som vist i tabell~\ref{tab:transistor_sammenheng} vil $V_{CE}$ synke dersom $I_C$ øker. Utgangssignalet klippes når transistoren drives ut av den aktive regionen. Ved høy kollektorstrøm går transistoren i metning (lav $V_{CE}$), og ved lav strøm nærmer den seg cutoff ($I_C \approx 0$). Siden vårt arbeidspunkt ligger langt oppe til venstre, vil den klippes dersom arbeidspunktet forsøker å forflytte seg for langt opp til venstre. Derfor forventer vi at utgangssignalet klippes når inngangssignalet øker (positiv periode). I tillegg har vi utledet at det er $180\degree$ faseforskyvning som betyr at vi forventer klipping i negativ periode i utgangssignalet.
 
 
 \subsubsection{Krets 3 - Inngangsimpedans}
@@ -262,8 +252,15 @@ Dersom dekademotstanden har motsand $0\Omega$ måler vi inngangsspenningen over 
     v_a = v_i \frac{R_{in}}{R_{dek} + R_{in}}, \quad R_{dek} = R_{in} \\
     v_a = v_i \frac{R_{in}}{2\cdot R_{in}} = v_i \cdot \frac{1}{2}
 \end{gather*}
+
 \noindent
 Da ser vi at når AC-delen av basespenningen i vårt tilfelle er halvparten av inngangsspenningen, må dekademotstanden være lik inngangsimdepansen i kretsen.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{Media/inngang_før_etter.png}
+\caption{Inngangsspenning og AC-basespenning.}
+\end{figure}
 
 \begin{table}[H]
 \centering
@@ -295,11 +292,29 @@ I denne kretsen benytter vi dekademotstand i serie med utgangskondensatoren til 
 \end{figure}
 
 \noindent
-Inngangsspenningen er thevenins spenning sett fra dekademotstanden. Dersom $R_{dek} \rightarrow \infty$, kan dekademotstanden tilnærmes åpen krets og siden ingen strøm går gjennom kretsen måler vi theveninsspenningen på $v_0$. Ettersom vi minker dekademotstanden, når vi et punkt hvor utgangsspenningen er halvert fra open-circuit $V_o$. Da er det en spenningsdeler som deler spenningen likt, og dekademotstanden må være lik utgangsimpedansen til forsterkeren.
+Inngangsspenningen er Thévenin-spenning sett fra dekademotstanden. Dersom $R_{dek} \rightarrow \infty$, kan dekademotstanden tilnærmes åpen krets og siden ingen strøm går gjennom kretsen måler vi Thévenin-spenningen på $v_0$. Ettersom vi minker dekademotstanden, når vi et punkt hvor utgangsspenningen er halvert fra open-circuit $V_o$. Da er det en spenningsdeler som deler spenningen likt, og dekademotstanden må være lik utgangsimpedansen til forsterkeren.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Media/dekade_uendelig.png}
+        \caption{Dekademotstand lik $\approx 10\text{M}\Omega$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Media/dekade_6kiloOhm.png}
+        \caption{Dekademotstand lik $6\text{k}\Omega$}
+    \end{subfigure}
+
+    \caption{Inngang- og utgangssignal ved to dekademotsandsverdier. }
+\end{figure}
 
 \begin{table}[H]
 \centering
-\caption{Resultater av inngangsimpedans}
+\caption{Resultater av utgangsimpedans}
 \vspace{1em}
 \begin{tabular}{lc}
 \toprule
@@ -317,20 +332,18 @@ $6\text{k}\Omega$ & $600\text{mV}_{pp}$ \\
 Her er kretsen lik den i figur~\ref{fig:transistorkretsen}, men med en kondensator med kapasitans $C=47\mu \text{f}$ i parallell med emittermotstanden. I DC-analyse blir dette åpen-krets, og utregningene forblir de samme. I AC-analyse blir kondensatoren kortsluttet, og vi har dermed ingen emittermotstand.
 \paragraph{Arbeidspunktet. }
 Denne måles i DC-modus og skal derfor være lik som tidligere. Dette er målt til.
+\vspace{1em}
 \[
 Q = \left(0.93\text{V}, 2.52\text{mA}\right)
 \]
 
-\noindent
-Sammenlikner vi det med arbeidspunktet i forsterkerkretsen uten emitterkondensatoren.
-
 \begin{table}[H]
 \centering
-\caption{Arbeidspunktsammenlikning}
+\caption{Arbeidspunktsammenlikning fra tidligere måling.}
 \vspace{1em}
 \begin{tabular}{lcc}
 \toprule
-\textbf{Avkoblet emittermotstand} & \textbf{$V_CE$} & \textbf{$I_C$} \\
+\textbf{Avkoblet emittermotstand} & \textbf{$V_{CE}$} & \textbf{$I_C$} \\
 \midrule
 Nei & 0.91V & 2.53mA \\
 Ja & 0.93V & 2.52mA \\
@@ -350,7 +363,7 @@ Dette er som forventet, siden arbeidspunktet måles i DC-krets, vil kondensatore
 \end{figure}
 
 \noindent
-Dette er et tydelig tilfelle av klipping i både positiv og negativ periode. For å finne forsterkingen, må vi analysere hva som hadde vært den ''uklippet'' $v_o$ kurven. Under er et bilde av en estimert kurve, slik at vi kan regne ut forsterking.
+Dette er et tydelig tilfelle av klipping i negativ periode, og avrunding i positiv. For å finne forsterkingen, må vi analysere hva som hadde vært den ''uklippet'' $v_o$ kurven. Under er et bilde av en estimert kurve, slik at vi kan regne ut forsterking.
 
 \begin{figure}[H]
 \centering
@@ -377,3 +390,24 @@ $-530.3$ & $\approx - 350$ & $\approx 34.0 \%$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\noindent
+Resultatet har et betydelig avvik fra det teorien tilsier. Likevel oppnår kretsen en svært høy spenningsforsterkning, og dette påvirker utsignalet tydelig. I tabell~\ref{tab:transistor_sammenheng} presenterte vi sammenhengen mellom $I_C$ og $V_{CE}$. Når inngangssignalet øker, øker kollektorstrømmen, samtidig som $V_{CE}$ minker. Siden arbeidspunktet ligger langt oppe til venstre på arbeidslinja, vil transistoren raskt drives mot metning når inngangssignalet øker. Dette gir klipping i den negative halvperioden til utgangssignalet, siden forsterkeren inverterer signalet.
+\\[1em]
+I motsatt retning, når inngangssignalet minker, reduseres $I_C$ og $V_{CE}$ øker. Arbeidspunktet har da langt større spenningsmargin før cutoff nås. Dette kan vises ved
+\begin{gather*}
+    \Delta V_{CE} = I_{CQ}R_C \\
+    \Delta V_{CE} = 2.52\text{mA} \cdot 5.6\text{k}\Omega \\
+    \Delta V_{CE} = 14.11\text{V}
+\end{gather*}
+
+\noindent
+Dermed blir maksimal teoretisk verdi for $V_{CE}$ langs arbeidslinja
+\[
+    V_{CE,max} = 0.93\text{V} + 14.11\text{V} = 15.04\text{V}.
+\]
+
+\noindent
+Arbeidspunktet kan derfor teoretisk bevege seg til omtrent $V_{CE}=15.04\text{V}$ før $I_C$ blir null. Dette er lavere enn $V_{CC}=18\text{V}$, men viser likevel at det finnes stor margin mot cutoff sammenlignet med marginen mot metning.
+\\[1em]
+Selv om signalet ikke nødvendigvis klippes hardt i denne retningen, observeres en avrunding av utsignalet. Dette skyldes at transistoren ikke er lineær over hele arbeidslinja. Arbeidslinja viser hvilke kombinasjoner av $I_C$ og $V_{CE}$ som er mulige, men ikke at bevegelsen mellom punktene skjer lineært. Når $I_C$ minker, minker også $V_{BE}$. På grunn av den eksponentielle diodekarakteristikken mellom base og emitter vil kollektorstrømmen ikke lenger følge inngangssignalet lineært. Rundt arbeidspunktet kan responsen tilnærmes som lineær, men ved lavere $V_{BE}$ reduseres transkonduktansen, noe som betyr at samme endring i inngangsspenning gir mindre endring i kollektorstrøm. Dette fører til kompresjon og avrunding av utsignalet.
